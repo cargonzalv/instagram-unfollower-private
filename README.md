@@ -10,8 +10,8 @@ This repository contains a script that helps you unfollow Instagram users who do
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/cargonzalv/instagram-unfollower-private.git
-   cd instagram-unfollower-private
+   git clone <Your Repository URL>
+   cd <Your Repository Directory>
    ```
 
 2. **Install dependencies**:
@@ -26,6 +26,12 @@ This repository contains a script that helps you unfollow Instagram users who do
    INSTAGRAM_PASSWORD=your_password
    ```
 
+   Optionally, if you have certain people you don't want to unfollow, you can add them to a whitelist. Add the `WHITELIST` variable in the `.env` file and list the usernames separated by commas without spaces:
+
+   ```
+   WHITELIST=username1,username2,username3
+   ```
+
    ⚠️ **Important**: Never commit your `.env` file. This file contains sensitive information.
 
 4. **Run the script**:
@@ -35,21 +41,4 @@ This repository contains a script that helps you unfollow Instagram users who do
 
 ---
 
-### .gitignore
-To ensure your node modules and `.env` file (which contains sensitive information) are not committed to the repository, you should have a `.gitignore` file. Here's what it might look like:
-
-```
-# Node.js related
-node_modules/
-npm-debug.log
-yarn-error.log
-
-# dotenv environment variables file
-.env
-```
-
-Save the above content in a file named `.gitignore` in the root directory of your project.
-
----
-
-When you push to your repository, the `.gitignore` will ensure your `node_modules` and `.env` are not uploaded, and the `README.md` will guide users on how to use your code.
+Including this, users will know they can set up a whitelist of users they don't want to unfollow by specifying them in the `.env` file.
