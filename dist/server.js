@@ -6,7 +6,7 @@ const instagram_private_api_1 = require("instagram-private-api");
 const ig = new instagram_private_api_1.IgApiClient();
 const username = process.env.IG_USERNAME || '';
 const password = process.env.IG_PASSWORD || '';
-const whitelist = ['escuelaclassicstone', 'epstein_denier_the_comeback']; // People you don't want to unfollow even if they don't follow you back
+const whitelist = process.env.WHITELIST?.split(',') || []; // People you don't want to unfollow even if they don't follow you back
 ig.state.generateDevice(username);
 (async () => {
     await ig.account.login(username, password);
