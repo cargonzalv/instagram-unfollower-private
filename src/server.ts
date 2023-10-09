@@ -6,7 +6,7 @@ import { IgApiClient, Feed } from 'instagram-private-api';
 const ig = new IgApiClient();
 const username = process.env.IG_USERNAME || '';
 const password = process.env.IG_PASSWORD || '';
-const whitelist: any[] = []; // People you don't want to unfollow even if they don't follow you back
+const whitelist: string[] = []; // People you don't want to unfollow even if they don't follow you back
 ig.state.generateDevice(username);
 
 (async () => {
