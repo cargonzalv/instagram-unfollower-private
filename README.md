@@ -36,6 +36,7 @@ This repository contains a script that helps you unfollow Instagram users who do
 
 4. **Run the script**:
    ```bash
+   yarn build
    yarn start
    ```
 
