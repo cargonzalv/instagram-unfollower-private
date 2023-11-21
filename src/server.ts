@@ -1,7 +1,7 @@
 /* tslint:disable:no-console */
 
 import 'dotenv/config';
-import { IgApiClient, Feed } from 'instagram-private-api';
+import { IgApiClient, Feed, AccountFollowersFeedResponseUsersItem } from 'instagram-private-api';
 
 const ig = new IgApiClient();
 const username = process.env.IG_USERNAME || '';
@@ -26,16 +26,28 @@ ig.state.generateDevice(username);
   );
   // Looping through and unfollowing each user
   for (const user of notFollowingYou) {
-    await ig.friendship.destroy(user.pk);
-    console.log(`unfollowed ${user.username}`);
-    /*
-    Time, is the delay which is between 1 second and 7 seconds.
-    Creating a promise to stop the loop to avoid api spam
-    */
-    const time = Math.round(Math.random() * 6000) + 1000;
-    await new Promise(resolve => setTimeout(resolve, time));
+    await unfollow(user);
   }
 })();
+
+async function unfollow(user: AccountFollowersFeedResponseUsersItem) {
+  try {
+    await ig.friendship.destroy(user.pk);
+    console.log(`unfollowed ${user.username}`);
+  } catch(err: any) {
+    if (err.toString().includes('login_required')) {
+      console.log('Error, logging in again');
+      await ig.account.login(username, password);
+      await ig.friendship.destroy(user.pk);
+    }
+  }
+  /*
+  Time, is the delay which is between 1 second and 7 seconds.
+  Creating a promise to stop the loop to avoid api spam
+  */
+  const time = Math.round(Math.random() * 6000) + 1000;
+  await new Promise(resolve => setTimeout(resolve, time));
+}
 
 /**
 * Source: https://github.com/dilame/instagram-private-api/issues/969#issuecomment-551436680
